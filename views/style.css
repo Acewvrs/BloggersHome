@@ -1,0 +1,21 @@
+#website-title {    
+    text-align: center; /* Horizontally center the title */
+    font-size: 10vh; /* Adjust size as needed */
+    font-weight: bold; /* Make it bold if desired */
+    margin-top: 20px; /* Add some spacing from the top */
+    padding: 10px;
+}
+
+.blog-headings {
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-heading {
+    justify-content: center;
+    display: flex;
+}
+
+.title {
+    color: red
+}
