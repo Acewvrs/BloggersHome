@@ -6,9 +6,9 @@
 //     });
 // };
 
-exports.usersUpdateGet = (req, res) => {
+exports.blogUpdateGet = (req, res) => {
     res.render("home", {
-        message: "hi"
+        // TODO: pass necessary arguments
     });
     // res.json();
 };

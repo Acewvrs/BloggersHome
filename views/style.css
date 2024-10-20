@@ -14,7 +14,6 @@
 
 .blog-heading {
     background-color: rgb(133, 133, 133);
-    justify-content: center;
     display: flex;
     justify-content: space-around;
     margin: 5px;
@@ -31,4 +30,12 @@
     font-size: 20px;
     padding-top: 15px;
     text-align: center;
+}
+
+.new-blog-button {
+    background-color: rgb(40, 222, 113);
+    text-align: center;
+    margin: 5px;
+    width: 50px;
+    height: 50px;
 }

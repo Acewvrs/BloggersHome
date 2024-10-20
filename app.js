@@ -1,7 +1,7 @@
 // app.js
 const express = require("express");
 const app = express();
-const usersRouter = require("./routers/userRouter");
+const usersRouter = require("./routers/blogsRouter");
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/views')); // for using css
