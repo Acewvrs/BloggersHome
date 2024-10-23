@@ -31,14 +31,25 @@ function blogCreate(req, res) {
     });
 }
 
+function getCurrentDateStr() {
+    const dateObj = new Date();
+    const month   = dateObj.getUTCMonth();
+    const day     = dateObj.getUTCDate();
+    const year    = dateObj.getUTCFullYear();
+    const date = new Date(year, month, day);
+    const month_str = date.toLocaleString('default', { month: 'long' });
+    date_string = month_str + " " + day + ", " + year;
+    return date_string;
+}
+
 async function blogPost(req, res) {
     // TODO:
     // update database
     // redirect to /home
 
     const {blog_title, content} = req.body;
-    console.log(blog_title + " " + content);
-    // await db.insertBlog("Article #1", "July 10, 2024");
+    date = getCurrentDateStr();
+    await db.insertBlog(blog_title, date, content);
     res.redirect("/home");
 }
 

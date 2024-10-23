@@ -1,13 +1,15 @@
 const { Client } = require("pg");
 
 // add this to script in package.json
-const SQL = `
+const SQL = 
+`
 DROP TABLE blogs; 
 
 CREATE TABLE IF NOT EXISTS blogs (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR (255),
-    date VARCHAR (255)
+    date VARCHAR (255),
+    content VARCHAR (255)
 );
 
 `;

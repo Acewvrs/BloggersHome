@@ -5,8 +5,8 @@ async function getBlog(id) {
   return rows;
 }
 
-async function insertBlog(title, date) {
-  await pool.query("INSERT INTO blogs (title, date) VALUES ($1, $2)", [title, date]);
+async function insertBlog(title, date, content) {
+  await pool.query("INSERT INTO blogs (title, date, content) VALUES ($1, $2, $3)", [title, date, content]);
   console.log("done!");
 }
 
