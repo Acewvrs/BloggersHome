@@ -14,10 +14,10 @@ async function blogGet(req, res) {
     // res.send("Blogs: " + blogs.map(user => user.username).join(", "));
 }
 
-async function blogUpdate(req, res) {
-    await db.insertBlog("Article #1", "July 10, 2024");
-    // res.send("Blogs: " + blogs.map(user => user.username).join(", "));
-}
+// async function blogUpdate(req, res) {
+//     await db.insertBlog("Article #1", "July 10, 2024");
+//     // res.send("Blogs: " + blogs.map(user => user.username).join(", "));
+// }
 
 function homeGet(req, res) {
     res.render("home", {
@@ -31,9 +31,20 @@ function blogCreate(req, res) {
     });
 }
 
+async function blogPost(req, res) {
+    // TODO:
+    // update database
+    // redirect to /home
+
+    const {blog_title, content} = req.body;
+    console.log(blog_title + " " + content);
+    // await db.insertBlog("Article #1", "July 10, 2024");
+    res.redirect("/home");
+}
+
 module.exports = {
     blogGet,
-    blogUpdate,
     homeGet,
-    blogCreate
+    blogCreate,
+    blogPost
 }

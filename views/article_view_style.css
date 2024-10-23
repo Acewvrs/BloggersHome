@@ -15,6 +15,42 @@
 .input {
     display: flex;
     flex-direction: column;
-    background-color: red;
-    color: blue;
+}
+
+#content {
+    height: 30vh;
+    width: 80vw;
+}
+
+/* .submit_button {
+    background-color: green;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+} */
+
+.submit_button {
+    position: relative;
+    background-color: #04AA6D;
+    border: none;
+    font-size: 20px;
+    color: #FFFFFF;
+    padding: 10px;
+    /* width: 200px; */
+    text-align: center;
+    opacity: 0.6;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+}
+  
+.submit_button:hover {opacity: 1}
+
+textarea {
+    width: 90vw;
 }

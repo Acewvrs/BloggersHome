@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-    <link href="./article_view_style.css" rel="stylesheet" type="text/css">
+    <link href="../../article_view_style.css" rel="stylesheet" type="text/css">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Create Article Screen</title>
+    </head>
     <body>
         <h1> 
             New Blog 
         </h1>
-        
-        <!-- <label for="lname">Last name:</label>
-        <input type="text" id="lname" name="lname"><br><br>
-        <form action="/new">
-            <input type="submit" value="Submit">
-        </form> -->
-        <div class="input title_input">
-            <label for="article_title">Article Title</label>
-            <input type="text" id="article_title" name="article_title"><br><br>
-        </div>
-        <div class="input date_input">
-            <label for="publishing_date">Publishing Date</label>
-            <input type="text" id="publishing_date" name="publishing_date"><br><br>
-        </div>
-        <div class="input content_input">
-            <label for="content">Content</label>
-            <input type="text" id="content" name="content"><br><br>
-        </div>
+        <form action="" method="post">
+            <div class="input title_input">
+              <label for="blog_title">Blog Title</label>
+              <input type="text" id="blog_title" name="blog_title" required>
+            </div>
+          
+            <div class="input content_input">
+              <label for="content">Write your story here!</label>
+              <textarea id="content" name="content" required></textarea>
+            </div>
+          
+            <button type="submit" class="submit_button">Submit</button>
+          </form>
     </body>
 </html>
