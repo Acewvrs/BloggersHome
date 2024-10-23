@@ -12,25 +12,21 @@
         </h1>
         <div class = "blog-headings">
             <base href="/home/" />
-            <a href="blog/1" class = blog-heading>
-                <div class = "title">
-                    My first blog
-                </div>
-                <div class = "date">
-                    August 7, 2024
-                </div>
-            </a>
-            <a href="blog/2" class = "blog-heading">
-                <div class = "title">
-                    Second blog
-                </div>
-                <div class = "date">
-                    August 2, 2024
-                </div>
-            </a>
-            <a href="blog/new" class = "new-blog-button">
-                New Article
-            </a>
+            <% for (let i = 0; i < blogs.length; i++) { %>
+                <a href="blog/<%=blogs[i].id %>" class = "blog-heading">
+                    <div class = "title">
+                        <%= blogs[i].title %>
+                    </div>
+                    <div class = "date">
+                        <%= blogs[i].date %>
+                    </div>
+                </a>
+            <% } %>
+            <div class = "new-blog-button">
+                <a href="blog/new" >
+                    New Blog
+                </a>
+            </div>
         </div>
     </body>
 </html>

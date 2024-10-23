@@ -33,9 +33,12 @@
 }
 
 .new-blog-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: rgb(40, 222, 113);
-    text-align: center;
     margin: 5px;
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 50px; 
+    /* text-align: center; */
 }

@@ -19,10 +19,10 @@ async function blogGet(req, res) {
 //     // res.send("Blogs: " + blogs.map(user => user.username).join(", "));
 // }
 
-function homeGet(req, res) {
-    res.render("home", {
-        // TODO: pass necessary arguments
-    });
+async function homeGet(req, res) {
+    blogs = await db.getAllBlogs();
+    console.log(blogs);
+    res.render("home", { blogs: blogs });
 };
 
 function blogCreate(req, res) {
@@ -43,10 +43,6 @@ function getCurrentDateStr() {
 }
 
 async function blogPost(req, res) {
-    // TODO:
-    // update database
-    // redirect to /home
-
     const {blog_title, content} = req.body;
     date = getCurrentDateStr();
     await db.insertBlog(blog_title, date, content);
