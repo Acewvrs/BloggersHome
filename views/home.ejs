@@ -32,11 +32,19 @@
                     Create User
                 </a>
             </div>
-            <div class = "log-in-button">
-                <a href="log-in" >
-                    Log in
-                </a>
-            </div>
+            <% if (!logged_in) { %>
+                <div class = "log-in-button">
+                    <a href="log-in" >
+                        Log in
+                    </a>
+                </div>
+            <% } else { %>
+                <div class = "sign-out">
+                    <a href="sign-out" >
+                        Sign out
+                    </a>
+                </div>
+            <% } %>
         </div>
     </body>
 </html>

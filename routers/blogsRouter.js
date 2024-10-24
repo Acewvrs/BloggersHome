@@ -24,5 +24,5 @@ blogsRouter.post(
     })
 );
 
-blogsRouter.get("/home/blog/:id", blogsController.accessBlog); //blogsController.checkAuthenticated, blogsController.accessBlog
+blogsRouter.get("/home/blog/:id", blogsController.checkAuthenticated, blogsController.accessBlog); //blogsController.checkAuthenticated, blogsController.accessBlog
 module.exports = blogsRouter;

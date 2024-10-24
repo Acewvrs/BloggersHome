@@ -8,8 +8,8 @@ async function createUser(username, password) {
     ]);
 }
 async function getBlog(id) {
-    const blog = await pool.query(`SELECT * FROM blogs WHERE ID == ${id}`);
-    return blog.rows;
+    const blog = await pool.query(`SELECT * FROM blogs WHERE id = ${id}`);
+    return blog.rows[0];
 }
 
 async function getAllBlogs() {

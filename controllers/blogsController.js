@@ -19,12 +19,13 @@ async function blogGet(req, res) {
 // }
 
 async function homeGet(req, res) {
+    authenticated = req.isAuthenticated();
     blogs = await db.getAllBlogs();
-    res.render("home", { blogs: blogs });
+    res.render("home", { blogs: blogs, logged_in: authenticated });
 };
 
 function blogCreate(req, res) {
-    res.render("create_article");
+    res.render("create_blog");
 }
 
 function getCurrentDateStr() {
@@ -65,14 +66,27 @@ async function loginGet(req, res) {
 }
 
 function checkAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) { return next() }
-    res.redirect("/login")
+    if (req.isAuthenticated()) { return next(); }
+    res.redirect("/home/log-in");
 }
 
-function accessBlog(req, res) {
+// TODO:
+async function findAuthorOfBlog(blog_id) {
+
+}
+// TODO:
+function userHasAccess(req, res) {
+    // if (checkAuthenticated)
+    user = req.user;
+    
+    // if (user.username == )
+    console.log(user);
+}
+
+async function accessBlog(req, res) {
     const {id} = req.params;
-    // console.log("blog id:", id);
-    // TODO: article view
+    blog = await db.getBlog(id);
+    res.render("view_blog", {title: blog.title, content: blog.content});
 }
 
 
