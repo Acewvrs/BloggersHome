@@ -42,3 +42,13 @@
     height: 50px; 
     /* text-align: center; */
 }
+
+.sign-up-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(40, 222, 113);
+    margin: 5px;
+    width: 100px;
+    height: 50px; 
+}

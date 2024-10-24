@@ -1,8 +1,15 @@
 const pool = require("./pool");
 
+async function createUser(username, password) {
+  await pool.query("INSERT INTO users (username, password) VALUES ($1, $2)", 
+    [
+      username,
+      password
+    ]);
+}
 async function getBlog(id) {
-    const blog  = await pool.query(`SELECT * FROM blogs WHERE ID == ${id}`);
-    return blog.row;
+    const blog = await pool.query(`SELECT * FROM blogs WHERE ID == ${id}`);
+    return blog.rows;
 }
 
 async function getAllBlogs() {
@@ -12,11 +19,20 @@ async function getAllBlogs() {
 
 async function insertBlog(title, date, content) {
     await pool.query("INSERT INTO blogs (title, date, content) VALUES ($1, $2, $3)", [title, date, content]);
-    console.log("done!");
+    // console.log("done!");
+}
+
+async function findUser(username) {
+    const user = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
+    // console.log(user.rows);
+    // console.log(user.rows[0]);
+    return user.rows[0];
 }
 
 module.exports = {
     getAllBlogs,
     getBlog,
-    insertBlog
+    insertBlog,
+    findUser,
+    createUser
 };

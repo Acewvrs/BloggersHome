@@ -17,6 +17,10 @@
     flex-direction: column;
 }
 
+.user_input {
+    width: 100px;
+}
+
 #content {
     height: 30vh;
     width: 80vw;

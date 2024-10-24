@@ -9,7 +9,6 @@ const db = require("../db/queries");
 
 async function blogGet(req, res) {
     const blogs = await db.getBlog(1);
-    console.log("Rows: ", blogs);
     // console.log("Blogs: ", blogs);
     // res.send("Blogs: " + blogs.map(user => user.username).join(", "));
 }
@@ -21,14 +20,11 @@ async function blogGet(req, res) {
 
 async function homeGet(req, res) {
     blogs = await db.getAllBlogs();
-    console.log(blogs);
     res.render("home", { blogs: blogs });
 };
 
 function blogCreate(req, res) {
-    res.render("create_article", {
-
-    });
+    res.render("create_article");
 }
 
 function getCurrentDateStr() {
@@ -49,9 +45,45 @@ async function blogPost(req, res) {
     res.redirect("/home");
 }
 
+async function signUpGet(req, res) {
+    res.render("signup");
+}
+
+async function signUpPost(req, res) {
+    try {
+        const {username, password} = req.body;
+        db.createUser(username, password);
+        res.redirect("/home");
+    } catch(err) {
+        // return next(err);
+        // TODO:
+    }
+}
+
+async function loginGet(req, res) {
+    res.render("login", {});
+}
+
+function checkAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) { return next() }
+    res.redirect("/login")
+}
+
+function accessBlog(req, res) {
+    const {id} = req.params;
+    // console.log("blog id:", id);
+    // TODO: article view
+}
+
+
 module.exports = {
     blogGet,
     homeGet,
+    signUpGet,
+    signUpPost,
+    loginGet,
     blogCreate,
-    blogPost
+    blogPost,
+    checkAuthenticated,
+    accessBlog
 }
