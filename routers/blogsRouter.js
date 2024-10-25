@@ -24,5 +24,7 @@ blogsRouter.post(
     })
 );
 
+blogsRouter.get("/home/log-out", blogsController.logout);
+
 blogsRouter.get("/home/blog/:id", blogsController.checkAuthenticated, blogsController.accessBlog); //blogsController.checkAuthenticated, blogsController.accessBlog
 module.exports = blogsRouter;

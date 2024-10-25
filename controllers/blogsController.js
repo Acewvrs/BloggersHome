@@ -89,6 +89,14 @@ async function accessBlog(req, res) {
     res.render("view_blog", {title: blog.title, content: blog.content});
 }
 
+function logout(req, res) {
+    req.logout((err) => {
+        if (err) {
+          return next(err);
+        }
+        res.redirect("/home");
+    });
+}
 
 module.exports = {
     blogGet,
@@ -99,5 +107,6 @@ module.exports = {
     blogCreate,
     blogPost,
     checkAuthenticated,
-    accessBlog
+    accessBlog,
+    logout
 }
