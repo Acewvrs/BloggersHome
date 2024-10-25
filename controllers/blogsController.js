@@ -24,7 +24,7 @@ async function homeGet(req, res) {
     res.render("home", { blogs: blogs, logged_in: authenticated });
 };
 
-function blogCreate(req, res) {
+function newBlogGet(req, res) {
     res.render("create_blog");
 }
 
@@ -39,21 +39,33 @@ function getCurrentDateStr() {
     return date_string;
 }
 
-async function blogPost(req, res) {
+async function newBlogPost(req, res) {
     const {blog_title, content} = req.body;
     date = getCurrentDateStr();
     await db.insertBlog(blog_title, date, content);
+    // TODO: add blog id to user in users
+
+    
     res.redirect("/home");
 }
 
 async function signUpGet(req, res) {
-    res.render("signup");
+    res.render("signup", {duplicate_username: false});
 }
 
-async function signUpPost(req, res) {
+async function signUpRetryGet(req, res) {
+    res.render("signup", {duplicate_username: true});
+}
+
+async function signUpPost(req, res, next) {
     try {
         const {username, password} = req.body;
-        db.createUser(username, password);
+        exist = await db.usernameExists(username);
+        
+        if (exist) {
+            return next();
+        }
+        await db.createUser(username, password);
         res.redirect("/home");
     } catch(err) {
         // return next(err);
@@ -65,9 +77,10 @@ async function loginGet(req, res) {
     res.render("login", {});
 }
 
+// checks if user is logged-in and prompts to log in if not
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { return next(); }
-    res.redirect("/home/log-in");
+    res.redirect("/home/login_prompt");
 }
 
 // TODO:
@@ -85,6 +98,8 @@ function userHasAccess(req, res) {
 
 async function accessBlog(req, res) {
     const {id} = req.params;
+    // author = await db.getAuthorOfBlog(id);
+    // console.log(author);
     blog = await db.getBlog(id);
     res.render("view_blog", {title: blog.title, content: blog.content});
 }
@@ -98,15 +113,21 @@ function logout(req, res) {
     });
 }
 
+function promptUserLoginGet(req, res) {
+    res.render("login_prompt");
+}
+
 module.exports = {
     blogGet,
     homeGet,
     signUpGet,
     signUpPost,
     loginGet,
-    blogCreate,
-    blogPost,
+    newBlogGet,
+    newBlogPost,
     checkAuthenticated,
     accessBlog,
-    logout
+    logout,
+    promptUserLoginGet,
+    signUpRetryGet
 }

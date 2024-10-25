@@ -22,17 +22,29 @@ async function insertBlog(title, date, content) {
     // console.log("done!");
 }
 
-async function findUser(username) {
+async function getUser(username) {
     const user = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
     // console.log(user.rows);
     // console.log(user.rows[0]);
     return user.rows[0];
 }
 
+async function getAuthorOfBlog(blog_id) {
+  const title = await pool.query("SELECT title FROM users WHERE username = $1", [blog_id]);
+  return title.rows[0];
+}
+
+async function usernameExists(username) {
+  const user = await pool.query("SELECT username FROM users WHERE username = $1", [username]);
+  return (user.rows.length != 0);
+}
+
 module.exports = {
     getAllBlogs,
     getBlog,
     insertBlog,
-    findUser,
-    createUser
+    getUser,
+    createUser,
+    getAuthorOfBlog,
+    usernameExists
 };

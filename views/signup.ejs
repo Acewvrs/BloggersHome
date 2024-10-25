@@ -13,5 +13,8 @@
     <input id="password" name="password" type="password" />
     <button>Sign Up</button>
   </form>
+  <% if (duplicate_username) { %>
+    <h3>Username already taken. Please choose a different username.</h3>
+  <% } %>
 </body>
 </html>

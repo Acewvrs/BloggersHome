@@ -24,10 +24,9 @@ app.use("/", usersRouter);
 passport.use(
     new LocalStrategy(async (username, password, done) => {
         try {
-            const user = await db.findUser(username);
+            const user = await db.getUser(username);
             // console.log(user);
             // const user = rows[0];
-    
             if (!user) {
                 return done(null, false, { message: "Incorrect username" });
             }
@@ -49,7 +48,7 @@ passport.deserializeUser(async (username, done) => {
     try {
         // const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
         // const user = rows[0];
-        const user = await db.findUser(username);
+        const user = await db.getUser(username);
         done(null, user);
     } catch(err) {
       done(err);
