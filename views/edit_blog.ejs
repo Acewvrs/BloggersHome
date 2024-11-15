@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <link href="../../../../blog_create_page_style.css" rel="stylesheet" type="text/css">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Article Screen</title>
+  </head>
+  <body>
+    <h1> 
+        Edit Blog 
+    </h1>
+    <form action="" method="post">
+      <div class="input title_input">
+        <label for="blog_title"> Blog Title </label>
+        <input type="text" id="blog_title" name="blog_title" required value="<%= title %>">
+      </div>
+    
+      <div class="input content_input">
+        <label for="content">Write your story here!</label>
+        <textarea id="content" name="content" required><%= content %></textarea>
+      </div>    
+      <button type="submit" class="submit_button">Submit</button>
+    </form>
+  </body>
+</html>

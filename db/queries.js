@@ -22,6 +22,10 @@ async function insertBlog(title, date, content) {
     // console.log("done!");
 }
 
+async function updateBlog(id, title, date, content) {
+  await pool.query("UPDATE blogs SET title = $1, date = $2, content = $3 WHERE id = $4", [title, date, content, id]);
+}
+
 async function getUser(username) {
     const user = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
     // console.log(user.rows);
@@ -30,8 +34,8 @@ async function getUser(username) {
 }
 
 async function getAuthorOfBlog(blog_id) {
-  const title = await pool.query("SELECT title FROM users WHERE username = $1", [blog_id]);
-  return title.rows[0];
+  const author = await pool.query("SELECT username FROM authors WHERE blog_id = $1", [blog_id]);
+  return author.rows[0].username;
 }
 
 async function usernameExists(username) {
@@ -39,12 +43,25 @@ async function usernameExists(username) {
   return (user.rows.length != 0);
 }
 
+async function getNumOfBlogs() {
+  const result = await pool.query("SELECT COUNT(*) FROM blogs");
+  count = parseInt(result.rows[0].count, 10);
+  return count;
+}
+
+async function addBlogtoUser(username, blog_id) {
+  await pool.query("INSERT INTO authors (username, blog_id) VALUES ($1, $2)", [username, blog_id]);
+}
+
 module.exports = {
     getAllBlogs,
     getBlog,
     insertBlog,
+    updateBlog,
     getUser,
     createUser,
     getAuthorOfBlog,
-    usernameExists
+    usernameExists,
+    addBlogtoUser,
+    getNumOfBlogs
 };

@@ -1,8 +1,10 @@
 // app.js
 const express = require("express");
 const session = require("express-session");
+
 const passport = require("passport");
 var LocalStrategy = require('passport-local').Strategy;
+
 const usersRouter = require("./routers/blogsRouter");
 const db = require("./db/queries");
 require("dotenv").config();

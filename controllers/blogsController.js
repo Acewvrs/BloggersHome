@@ -43,9 +43,10 @@ async function newBlogPost(req, res) {
     const {blog_title, content} = req.body;
     date = getCurrentDateStr();
     await db.insertBlog(blog_title, date, content);
-    // TODO: add blog id to user in users
-
     
+    user = req.user;
+    const count = await db.getNumOfBlogs();
+    await db.addBlogtoUser(user.username, count);
     res.redirect("/home");
 }
 
@@ -65,8 +66,19 @@ async function signUpPost(req, res, next) {
         if (exist) {
             return next();
         }
-        await db.createUser(username, password);
-        res.redirect("/home");
+        else {
+            await db.createUser(username, password);
+
+            user = {username, password}; // creat user object
+
+            // Automatically log the user in
+            req.login(user, (err) => {
+                if (err) return next(err);  // Pass error to the next middleware
+
+                // Redirect to home or the user's page
+                return res.redirect("/home");
+            });
+        }
     } catch(err) {
         // return next(err);
         // TODO:
@@ -79,6 +91,7 @@ async function loginGet(req, res) {
 
 // checks if user is logged-in and prompts to log in if not
 function checkAuthenticated(req, res, next) {
+    console.log("authenticated: ", req.isAuthenticated());
     if (req.isAuthenticated()) { return next(); }
     res.redirect("/home/login_prompt");
 }
@@ -87,13 +100,37 @@ function checkAuthenticated(req, res, next) {
 async function findAuthorOfBlog(blog_id) {
 
 }
-// TODO:
-function userHasAccess(req, res) {
-    // if (checkAuthenticated)
-    user = req.user;
-    
-    // if (user.username == )
-    console.log(user);
+
+function noAccessPage(req, res) {
+    res.render("no_access_to_blog");
+}
+
+// if user is accessing their own blog, allow them to edit
+// if user is accessing other people's blogs, open it view-only
+async function userHasAccess(req, res, next) {
+    user = req.user.username;
+    const {id} = req.params;
+
+    author = await db.getAuthorOfBlog(id);
+    if (author != user) next();
+    else res.redirect(`/home/blog/${id}/edit`);
+}
+
+async function updateBlog(req, res) {
+    const {id} = req.params;
+    const {blog_title, content} = req.body;
+    date = getCurrentDateStr();
+
+    await db.updateBlog(id, blog_title, date, content);
+    res.redirect("/home");
+}
+
+
+async function editBlog(req, res) {
+    const {id} = req.params;
+    blog = await db.getBlog(id);
+    console.log(blog.title, blog.content);
+    res.render("edit_blog", {title: blog.title, content: blog.content});
 }
 
 async function accessBlog(req, res) {
@@ -129,5 +166,9 @@ module.exports = {
     accessBlog,
     logout,
     promptUserLoginGet,
-    signUpRetryGet
+    signUpRetryGet,
+    userHasAccess,
+    noAccessPage,
+    editBlog,
+    updateBlog
 }

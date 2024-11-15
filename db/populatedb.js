@@ -16,7 +16,13 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE IF NOT EXISTS users (
     username VARCHAR (255) PRIMARY KEY,
-    password VARCHAR (255),
+    password VARCHAR (255)
+);
+
+DROP TABLE IF EXISTS authors;
+
+CREATE TABLE IF NOT EXISTS authors (
+    username VARCHAR (255) PRIMARY KEY,
     blog_id INTEGER
 );
 `;
